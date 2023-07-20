@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>All users</title>
+</head>
+<body>
+<div>
+  <table>
+    <thead>
+    <tr style="padding: 10px">
+      <th><h3> Username </h3></th>
+      <th><h3> Surname </h3></th>
+      <th><h3> Age </h3></th>
+      <th><h3> Password </h3></th>
+      <th><h3> Roles </h3></th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="user : ${userList}">
+      <td><a style="font-size: 20px; padding: 7px" th:href="@{/user/{id}(id=${user.getId()})}" th:text="${user.username}"/></a></td>
+      <td><a style="font-size: 20px; padding: 7px" th:href="@{/user/{id}(id=${user.getId()})}" th:text="${user.surname}"/></a></td>
+      <td><a style="font-size: 20px; padding: 7px" th:href="@{/user/{id}(id=${user.getId()})}" th:text="${user.age}"/></a></td>
+      <td><a style="font-size: 20px; padding: 7px" th:href="@{/user/{id}(id=${user.getId()})}" th:text="${user.password}"/></a></td>
+      <td>
+        <th:block th:each="role : ${user.roles}">
+          <a style="font-size: 20px; padding: 7px" th:href="@{/user/{id}(id=${user.getId()})}" th:text="${role}"></a>
+        </th:block>
+      </td>
+      <td>
+        <form th:method="DELETE" th:action="@{/admin/{id}(id=${user.getId()})}">
+          <input type="submit" th:value="DELETE"/>
+        </form>
+      </td>
+      <td>
+        <form th:action="@{/admin/{id}/edit(id=${user.getId()})}">
+          <input type="submit" value="Edit user">
+        </form>
+      </td>
+    </tr>
+    </tbody>
+  </table>
+  <hr/>
+
+  <form action="admin/new">
+    <input type="submit" value="Create new user" style="float: left; margin-right: 20px;">
+  </form>
+  <form action="/logout">
+    <input type="submit" value="Logout">
+  </form>
+
+</div>
+</body>
+</html>
