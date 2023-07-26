@@ -70,7 +70,7 @@
                                         <th style="padding: 10px"><h5 style="font-weight: bold"> Username </h5></th>
                                         <th style="padding: 10px"><h5 style="font-weight: bold"> Surname </h5></th>
                                         <th style="padding: 10px"><h5 style="font-weight: bold"> Age </h5></th>
-                                        <th style="padding: 10px"><h5 style="font-weight: bold"> Password </h5></th>
+                                        <th style="padding: 10px"><h5 style="font-weight: bold"> Email </h5></th>
                                         <th style="padding: 10px"><h5 style="font-weight: bold"> Roles </h5></th>
                                     </tr>
                                     </thead>
@@ -82,7 +82,7 @@
                                         <td style="font-size: 20px; padding: 7px"><p th:text="${user.surname}"/></p>
                                         </td>
                                         <td style="font-size: 20px; padding: 7px"><p th:text="${user.age}"/></p></td>
-                                        <td style="font-size: 20px; padding: 7px"><p th:text="${user.password}"/></p>
+                                        <td style="font-size: 20px; padding: 7px"><p th:text="${user.email}"/></p>
                                         </td>
                                         <td>
                                             <th:block th:each="role : ${user.roles}">

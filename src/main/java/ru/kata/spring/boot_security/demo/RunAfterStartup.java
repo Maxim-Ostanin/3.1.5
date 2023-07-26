@@ -28,11 +28,11 @@ public class RunAfterStartup {
     Set<Role> userRoles = Set.of(userRole);
     Set<Role> adminRoles = Set.of(adminRole);
     User admin = new User("admin", "admin", 20,
-            "$2a$12$JYsSVSSCOoRClGD6eEeCxOIla0OaWqS3GL4mjNdGmpNA69YSUmiLq", adminAndUserRoles); // password - "admin"
+            "$2a$12$JYsSVSSCOoRClGD6eEeCxOIla0OaWqS3GL4mjNdGmpNA69YSUmiLq", "admin@mail.ru", adminAndUserRoles); // password - "admin"
     User user = new User("user", "user", 35,
-            "$2a$12$rFdTI7eHrwj5cy5hVjMjUOAWJfjbyKrMyfDB/wJsCj5qKgFOVnDwS", userRoles); // password - "user"
+            "$2a$12$rFdTI7eHrwj5cy5hVjMjUOAWJfjbyKrMyfDB/wJsCj5qKgFOVnDwS", "user@mail.ru", userRoles); // password - "user"
     User test = new User("test", "test", 50,
-            "$2a$12$PF3tK6n8FTE82mUcyR9j.eyG04jOmX2adiMDKcp8x8wFIy4hZUfWe", adminRoles); // password - "test"
+            "$2a$12$PF3tK6n8FTE82mUcyR9j.eyG04jOmX2adiMDKcp8x8wFIy4hZUfWe", "test@mail.ru", adminRoles); // password - "test"
 
 
     public void addUser(User user) {

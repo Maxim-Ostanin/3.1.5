@@ -23,6 +23,8 @@ public class User implements UserDetails {
 
     private int age;
 
+    private String email;
+
     private String password;
 
     @ManyToMany
@@ -35,11 +37,12 @@ public class User implements UserDetails {
     public User() {
     }
 
-    public User(String username, String surname, int age, String password, Set<Role> roles) {
+    public User(String username, String surname, int age, String password, String email, Set<Role> roles) {
         this.username = username;
         this.surname = surname;
         this.age = age;
         this.password = password;
+        this.email = email;
         this.roles = roles;
     }
 
@@ -73,6 +76,14 @@ public class User implements UserDetails {
 
     public void setId(int id) {
         this.id = id;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
     }
 
     public String getPassword() {

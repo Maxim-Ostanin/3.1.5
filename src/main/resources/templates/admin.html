@@ -68,7 +68,7 @@
                       <th style="padding: 10px"><h5 style="font-weight: bold"> Username </h5></th>
                       <th style="padding: 10px"><h5 style="font-weight: bold"> Surname </h5></th>
                       <th style="padding: 10px"><h5 style="font-weight: bold"> Age </h5></th>
-                      <th style="padding: 10px"><h5 style="font-weight: bold"> Password </h5></th>
+                      <th style="padding: 10px"><h5 style="font-weight: bold"> Email </h5></th>
                       <th style="padding: 10px"><h5 style="font-weight: bold"> Roles </h5></th>
                     </tr>
                     </thead>
@@ -78,7 +78,7 @@
                       <td style="font-size: 20px; padding: 7px"><p th:text="${user.username}"/></p></td>
                       <td style="font-size: 20px; padding: 7px"><p th:text="${user.surname}"/></p></td>
                       <td style="font-size: 20px; padding: 7px"><p th:text="${user.age}"/></p></td>
-                      <td style="font-size: 20px; padding: 7px"><p th:text="${user.password}"/></p></td>
+                      <td style="font-size: 20px; padding: 7px"><p th:text="${user.email}"/></p></td>
                       <td>
                         <th:block th:each="role : ${user.roles}">
                           <p style="font-size: 20px; padding: 7px; float: left"
@@ -127,6 +127,9 @@
                   <br/>
                   <label class="control-label" for="password">Password</label>
                   <input class="form-control" type="password" th:field="*{password}" id="password">
+                  <br/>
+                  <label class="control-label" for="email">Email</label>
+                  <input class="form-control" type="text" th:field="*{email}" id="email">
                   <br/>
                   <p>
                     <label class="control-label">Roles:</label>
@@ -182,6 +185,10 @@
             <input type="password" class="form-control" id="editpassword" name="password" value=""/>
           </div>
           <div class="mb-3">
+            <label for="editemail" class="col-form-label control-label">email:</label>
+            <input type="text" class="form-control" id="editemail" name="email" value=""/>
+          </div>
+          <div class="mb-3">
             <label for="editroles" class="col-form-label control-label">roles:</label>
                 <select id="editroles" name="roles" multiple="multiple" class="form-control" style="height: 70px">
 
@@ -224,7 +231,11 @@
             <div class="mb-3">
               <label for="deleteage" class="col-form-label control-label">age:</label>
               <input type="number" class="form-control" id="deleteage" name="age" value="" disabled/>
-            </div>
+          </div>
+          <div class="mb-3">
+            <label for="deleteemail" class="col-form-label control-label">email:</label>
+            <input type="text" class="form-control" id="deleteemail" name="email" value="" disabled/>
+          </div>
             <div class="mb-3">
               <label for="deleteroles" class="col-form-label control-label">roles:</label>
               <select id="deleteroles" name="roles" multiple="multiple" class="form-control" style="height: 70px" disabled>
@@ -254,6 +265,7 @@
         $('.myForm #editsurname').val(user.surname);
         $('.myForm #editage').val(user.age);
         $('.myForm #editpassword').val(user.password);
+        $('.myForm #editemail').val(user.email);
         $('.myForm #editroles').val(user.roles);
         $(".myForm #editForm").attr("action","admin/"+user.id);
       });
@@ -268,6 +280,7 @@
         $('.myForm #deletesurname').val(user.surname);
         $('.myForm #deleteage').val(user.age);
         $('.myForm #deletepassword').val(user.password);
+        $('.myForm #deleteemail').val(user.email);
         $('.myForm #deleteroles').val(user.roles);
         $(".myForm #deleteForm").attr("action","admin/"+user.id);
       });
