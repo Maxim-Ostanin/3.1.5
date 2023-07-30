@@ -1,51 +1,82 @@
 package ru.kata.spring.boot_security.demo.controller;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.*;
+import ru.kata.spring.boot_security.demo.models.Role;
 import ru.kata.spring.boot_security.demo.models.User;
-import ru.kata.spring.boot_security.demo.service.AdminControllerService;
+import ru.kata.spring.boot_security.demo.service.RoleService;
+import ru.kata.spring.boot_security.demo.service.UserService;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Controller
-public class AdminController implements AdminControllerInterface {
+public class AdminController {
 
-    private final AdminControllerService adminControllerService;
+    private final UserService userService;
+    private final RoleService roleService;
+    private final PasswordEncoder passwordEncoder;
 
-    @Autowired
-    public AdminController(AdminControllerService adminControllerService) {
-        this.adminControllerService = adminControllerService;
+    public AdminController(UserService userService, RoleService roleService, PasswordEncoder passwordEncoder) {
+        this.userService = userService;
+        this.roleService = roleService;
+        this.passwordEncoder = passwordEncoder;
     }
 
-
-    @Override
+    @GetMapping(value = "/")
     public String printWelcome(ModelMap model) {
-        return adminControllerService.printWelcome(model);
+        List<String> messages = new ArrayList<>();
+
+        messages.add("Hello!");
+        messages.add("To log in press:");
+        model.addAttribute("messages", messages);
+        return "index";
     }
 
-    @Override
+    @GetMapping("/admin")
     public String showAllUsers(@ModelAttribute("newUser") User newUser, ModelMap model) {
-        return adminControllerService.showAllUsers(newUser, model);
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        User user = (User) auth.getPrincipal();
+        model.addAttribute("roles", user.getRoles());
+        model.addAttribute("user", userService.loadUserByUsername(user.getUsername()));
+        List<User> userList = userService.getAllUsers();
+        model.addAttribute("userList", userList);
+        List<Role> roles = roleService.getAllRoles();
+        model.addAttribute("allRoles", roles);
+        return "admin";
     }
 
-    @Override
+    @DeleteMapping("/admin/{id}")
     public String deleteUser(@PathVariable("id") int id) {
-        return adminControllerService.deleteUser(id);
+        userService.removeUserById(id);
+        return "redirect:/admin";
     }
 
-    @Override
-    public String create(@ModelAttribute("newUser") User user) {
-        return adminControllerService.create(user);
+    @PostMapping("/admin")
+    public String createUser(@ModelAttribute("newUser") User user) {
+        user.setPassword(passwordEncoder.encode(user.getPassword()));
+        userService.addUser(user);
+        return "redirect:/admin";
     }
 
-    @Override
+    @PatchMapping("admin/{id}")
     public String updateUser(@ModelAttribute("userEdit") User userEdit, @PathVariable("id") int id) {
-        return adminControllerService.updateUser(userEdit, id);
+        if (userEdit.getPassword().equals(userService.getUserById(id).getPassword())) {
+            userEdit.setPassword(userEdit.getPassword());
+        } else {
+            userEdit.setPassword(passwordEncoder.encode(userEdit.getPassword()));
+        }
+        userService.updateUser(id, userEdit);
+        return "redirect:/admin";
     }
 
-    @Override
+    @GetMapping("/findUser")
+    @ResponseBody
     public User findUser(Integer id) {
-        return adminControllerService.findUser(id);
+        return userService.getUserById(id);
     }
 }

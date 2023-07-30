@@ -1,6 +1,5 @@
 package ru.kata.spring.boot_security.demo.repositories;
 
-import org.hibernate.query.Query;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Repository;
@@ -9,6 +8,7 @@ import ru.kata.spring.boot_security.demo.models.User;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 import javax.persistence.TypedQuery;
 import java.util.List;
 
@@ -28,7 +28,7 @@ public class UserRepositoryImpl implements UserRepository {
     @Override
     @Transactional
     public void removeUserById(int id) {
-        Query<User> query = (Query<User>) em.createQuery("delete from User u where id = :userId");
+        Query query = em.createQuery("delete from User u where id = :userId");
         query.setParameter("userId", id);
         query.executeUpdate();
     }
