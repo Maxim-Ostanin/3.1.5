@@ -35,7 +35,7 @@
     <div class="col-2" style="padding: 0 0 0 0; font-size: 24px">
       <p style="border-radius:5px; text-decoration: none; background-color: #007bff; color: #f8f9fa; padding: 5px 0 5px 20px"><a
               style="text-decoration: none;" th:text="Admin" sec:authorize="hasAuthority('ROLE_ADMIN')"/></p>
-      <p  style="color: #007bff; padding: 0 0 5px 20px"><a style="text-decoration: none;" th:text="User" th:href="@{/user}"/></p>
+      <p  style="color: #007bff; padding: 0 0 5px 20px"><a style="text-decoration: none;" th:text="User" th:href="@{/user-js}"/></p>
     </div>
     <div class="col" style="background-color:  #f8f9fa">
       <h1>Admin panel</h1>
@@ -181,12 +181,12 @@
             <input type="number" class="form-control" id="editage" name="age" value=""/>
           </div>
           <div class="mb-3">
-            <label for="editpassword" class="col-form-label control-label">password:</label>
-            <input type="password" class="form-control" id="editpassword" name="password" value=""/>
-          </div>
-          <div class="mb-3">
             <label for="editemail" class="col-form-label control-label">email:</label>
             <input type="text" class="form-control" id="editemail" name="email" value=""/>
+          </div>
+          <div class="mb-3">
+            <label for="editpassword" class="col-form-label control-label">password:</label>
+            <input type="password" class="form-control" id="editpassword" name="password" value=""/>
           </div>
           <div class="mb-3">
             <label for="editroles" class="col-form-label control-label">roles:</label>
@@ -231,11 +231,11 @@
             <div class="mb-3">
               <label for="deleteage" class="col-form-label control-label">age:</label>
               <input type="number" class="form-control" id="deleteage" name="age" value="" disabled/>
-          </div>
-          <div class="mb-3">
-            <label for="deleteemail" class="col-form-label control-label">email:</label>
-            <input type="text" class="form-control" id="deleteemail" name="email" value="" disabled/>
-          </div>
+            </div>
+            <div class="mb-3">
+              <label for="deleteemail" class="col-form-label control-label">email:</label>
+              <input type="text" class="form-control" id="deleteemail" name="email" value="" disabled/>
+            </div>
             <div class="mb-3">
               <label for="deleteroles" class="col-form-label control-label">roles:</label>
               <select id="deleteroles" name="roles" multiple="multiple" class="form-control" style="height: 70px" disabled>
@@ -255,7 +255,7 @@
   </form>
 </div>
 
-<script type="text/javascript">
+<script>
     $('.eBtn, .deleteBtn').click(function (event) {
       event.preventDefault();
       var href = $(this).attr('href');
@@ -264,8 +264,8 @@
         $('.myForm #editusername').val(user.username);
         $('.myForm #editsurname').val(user.surname);
         $('.myForm #editage').val(user.age);
-        $('.myForm #editpassword').val(user.password);
         $('.myForm #editemail').val(user.email);
+        $('.myForm #editpassword').val(user.password);
         $('.myForm #editroles').val(user.roles);
         $(".myForm #editForm").attr("action","admin/"+user.id);
       });
@@ -279,13 +279,17 @@
         $('.myForm #deleteusername').val(user.username);
         $('.myForm #deletesurname').val(user.surname);
         $('.myForm #deleteage').val(user.age);
-        $('.myForm #deletepassword').val(user.password);
         $('.myForm #deleteemail').val(user.email);
+        $('.myForm #deletepassword').val(user.password);
         $('.myForm #deleteroles').val(user.roles);
         $(".myForm #deleteForm").attr("action","admin/"+user.id);
       });
       $('.myForm #exampleModalDelete').modal();
     });
+
+
+
+
 </script>
 </body>
 </html>
