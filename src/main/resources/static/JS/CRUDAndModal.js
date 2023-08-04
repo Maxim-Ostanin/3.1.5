@@ -111,7 +111,6 @@ document.addEventListener('DOMContentLoaded', () => {
             const surname = fila.children[2].children[0].innerHTML
             const age = fila.children[3].children[0].innerHTML
             const email = fila.children[2].children[0].innerHTML
-            const password = fila.children[4].children[0].innerHTML
             const roles = fila.children[5].children[0].innerHTML
 
             editId.value = id
@@ -119,7 +118,7 @@ document.addEventListener('DOMContentLoaded', () => {
             editSurname.value = surname
             editAge.value = age
             editEmail.value = email
-            editPassword.value = password
+            editPassword.value = ""
             editRoles.options.select = roles
             $('.myForm #exampleModal').show();
 
@@ -137,7 +136,6 @@ document.addEventListener('DOMContentLoaded', () => {
             tableRow.children[2].children[0].innerHTML = user.surname
             tableRow.children[3].children[0].innerHTML = user.age
             tableRow.children[2].children[0].innerHTML = user.email
-            tableRow.children[4].children[0].innerHTML = user.password
             tableRow.children[5].children[0].innerHTML = stringRoles
 
         }

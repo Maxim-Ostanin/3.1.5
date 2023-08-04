@@ -19,6 +19,7 @@ public class UserRepositoryImpl implements UserRepository {
     @PersistenceContext
     private EntityManager em;
 
+
     @Override
     @Transactional
     public void addUser(User user) {
@@ -45,7 +46,15 @@ public class UserRepositoryImpl implements UserRepository {
 
     @Override
     @Transactional
-    public void updateUser(int id, User updatedUser) { em.merge(updatedUser); }
+    public void updateUser(int id, User updatedUser) {
+        User user = em.find(User.class, id);
+        user.setUsername(updatedUser.getUsername());
+        user.setPassword(updatedUser.getPassword());
+        user.setAge(updatedUser.getAge());
+        user.setSurname(updatedUser.getSurname());
+        user.setEmail(updatedUser.getEmail());
+        user.setRoles(updatedUser.getRoles());
+    }
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {

@@ -10,7 +10,7 @@ import ru.kata.spring.boot_security.demo.service.UserService;
 import java.util.List;
 
 @RestController
-public class AdminRestController {
+public class AdminRESTController {
 
     private final UserService userService;
     private final PasswordEncoder passwordEncoder;
@@ -21,13 +21,13 @@ public class AdminRestController {
     private String userUrl;
 
 
-    public AdminRestController(UserService userService, PasswordEncoder passwordEncoder) {
+    public AdminRESTController(UserService userService, PasswordEncoder passwordEncoder) {
         this.userService = userService;
         this.passwordEncoder = passwordEncoder;
     }
 
     @GetMapping("/")
-    public ModelAndView  printWelcome() {
+    public ModelAndView printWelcome() {
         ModelAndView mav = new ModelAndView("/index");
         mav.addObject("index", "index");
         return mav;
@@ -45,6 +45,11 @@ public class AdminRestController {
     @GetMapping("/api/admin")
     public List<User> findAllUsers() {
         return userService.getAllUsers();
+    }
+
+    @GetMapping("/api/admin/{id}")
+    public User findUser(@PathVariable("id") int id) {
+        return userService.getUserById(id);
     }
 
     @DeleteMapping("/api/admin/{id}")
@@ -70,8 +75,4 @@ public class AdminRestController {
         return findUser(id);
     }
 
-    @GetMapping("/findUser/{id}")
-    public User findUser(@PathVariable("id") int id) {
-        return userService.getUserById(id);
-    }
 }

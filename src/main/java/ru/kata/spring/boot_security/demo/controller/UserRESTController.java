@@ -11,7 +11,7 @@ import ru.kata.spring.boot_security.demo.models.User;
 import ru.kata.spring.boot_security.demo.service.UserService;
 
 @RestController
-public class UserRestController {
+public class UserRESTController {
 
     private final UserService userService;
 
@@ -19,7 +19,7 @@ public class UserRestController {
     private String userUrl;
 
     @Autowired
-    public UserRestController(UserService userService) {
+    public UserRESTController(UserService userService) {
         this.userService = userService;
     }
 
