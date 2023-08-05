@@ -19,7 +19,7 @@ public class UserServiceImpl implements UserService {
         this.userRepository = userRepository;
     }
 
-    @Transactional
+
     public UserDetails loadUserByUsername(String username) {
         return userRepository.loadUserByUsername(username);
     }
